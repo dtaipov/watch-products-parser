@@ -4,7 +4,11 @@ const db = require("./db");
 const Categories = require("./categories");
 const Products = require("./products");
 
-const START_CATEGORY_ID = 41;
+const Common = require("./common");
+
+Common.getProducts("watches");
+
+/*const START_CATEGORY_ID = 41;
 
 db.getProducts("watches", function(error, results) {
   const dbProducts = utils.toMappedArray(results, "id");
@@ -35,4 +39,4 @@ db.getProducts("watches", function(error, results) {
 
   });
 
-});
+});*/

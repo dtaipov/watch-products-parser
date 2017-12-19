@@ -70,9 +70,9 @@ function createAndFillWorkbook(products) {
 
 module.exports = {
 
-  createFile: function(manufacturer, products) {
+  createFile: function(fileName, products) {
     const workbook = createAndFillWorkbook(products);
-    workbook.xlsx.writeFile(`${manufacturer}_Products.xlsx`)
+    workbook.xlsx.writeFile(`${fileName}_Products.xlsx`)
       .then(function () {
         console.log("Writing done");
       });
