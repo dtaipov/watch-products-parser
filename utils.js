@@ -40,6 +40,9 @@ module.exports = {
   },
 
   formatDate: (date) => {
+    if (!date || isNaN(date.getFullYear()) || isNaN(date.getMonth()) || isNaN(date.getDate())) {
+      return null;
+    }
     return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
   }
 };

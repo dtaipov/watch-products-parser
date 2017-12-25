@@ -1,12 +1,27 @@
 const async = require('async');
 const xls = require("./xls");
+const sqlFile = require("./sqlFile");
 const db = require("./db");
 const Categories = require("./categories");
 const Products = require("./products");
 
 const Common = require("./common");
 
-Common.getProducts("watches");
+const type = "watches";
+Common.getProducts(type, function(err, products) {
+  //const chunkSize = 5000;
+  //for (let i=0; i<products.length; i+=chunkSize) {
+    //const productsChunk = products.slice(i, i+chunkSize);
+    //sqlFile.createProductsFile(type + i + "-" + (i+chunkSize), productsChunk);
+    sqlFile.createProductsFile("all", products);
+    //break;
+  //}
+});
+
+//sqlFile.createManufacturersFile();
+//sqlFile.createAttributeNamesFile();
+//sqlFile.createSexAttributesFile();
+//sqlFile.createAttributesFile();
 
 /*const START_CATEGORY_ID = 41;
 

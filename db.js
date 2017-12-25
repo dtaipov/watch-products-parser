@@ -25,11 +25,11 @@ module.exports = {
     let selectQuery;
     if (type === "watches") {
       selectQuery = 'SELECT ' +
-        'i.wid id, i.pi_mark type, i.ps_Name name, i.pi_price price, i.pdt_lastavail, ' +
+        'i.wid id, i.pi_mark type, i.ps_Name name, i.pi_price price, i.pdt_lastavail, i.pi_show, ' +
         'i.ps_bigFile, i.pictureBig1, i.ps_descr, t.ps_Name manufacturer, ' +
         'i.pi_mark+42 parent_id, i.pi_col+346 category_id ' +
         'from gr_watch i, gr_mark t, gr_collection ic ' +
-        'where i.pi_col=ic.id and i.pi_mark=t.id and t.id=3';
+        'where i.pi_col=ic.id and i.pi_mark=t.id';
     } else if (type === "interior") {
       selectQuery = 'SELECT ' +
         'i.aid id, i.type, i.name, i.pi_price price, i.pdt_lastavail,' +
@@ -49,6 +49,9 @@ module.exports = {
     getResult(selectQuery, callback);
   },
 
+  getCategories: (callback) => {
+  },
+
   getAttributes: (type, callback) => {
     if (type !== "watches") {
       return callback(null, []);
@@ -63,5 +66,24 @@ module.exports = {
       "     \tWHERE v.fsid = s.fsid AND s.fid = f.fid";
     //v.wid=" + productId + " AND
     getResult(selectQuery, callback);
-  }
+  },
+
+  getSexAttributes: (callback) => {
+    const selectQuery = "select w.wid product_id, case w.pi_sex when 1 then 'женские' when 0 then 'мужские' else 'унисекс' end value from iwatch1.gr_watch w";
+    getResult(selectQuery, callback);
+  },
+
+  getAttributesNames: (callback) => {
+    let selectQuery = "SELECT fid id, ps_ColName, ps_Display name, pi_order order_by, verbal_link FROM iwatch1.gr_feature;";
+    getResult(selectQuery, callback);
+  },
+
+  getManufacturers: (callback) => {
+    let selectQuery = `SELECT id+42 id, case m.ps_Name when '' then 'Empty' else m.ps_Name end name,
+  case m.ps_PictFile when '' then '' else concat('catalog/', m.ps_PictFile) end image, 0 sort_order
+    FROM iwatch1.gr_mark m;`;
+    getResult(selectQuery, callback);
+  },
+
+
 };
